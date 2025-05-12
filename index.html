@@ -23,7 +23,7 @@
       align-items: center;
       justify-content: center;
       z-index: 10;
-      animation: fadeOut 2s ease 4.8s forwards;
+      animation: fadeOut 1.5s ease 4.8s forwards;
     }
     .flare {
       position: absolute;
@@ -38,7 +38,9 @@
       color: #ffe600;
       font-size: 3.5rem;
       opacity: 0;
-      animation: revealText 2s ease-in 1.5s forwards;
+      animation:
+        revealText 2s ease-in 1.5s forwards,
+        fadeOutText 1s ease-out 4s forwards;
       text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
     }
     @keyframes flareMove {
@@ -49,6 +51,10 @@
     @keyframes revealText {
       0% { opacity: 0; }
       100% { opacity: 1; }
+    }
+    @keyframes fadeOutText {
+      from { opacity: 1; }
+      to { opacity: 0; }
     }
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
