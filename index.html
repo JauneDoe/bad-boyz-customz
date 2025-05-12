@@ -67,10 +67,17 @@
     <div class="flare"></div>
   </div>
 
+  <audio id="flareSound" src="https://cdn.pixabay.com/audio/2022/07/20/audio_07ec78a3db.mp3"></audio>
+  <audio id="chimeSound" src="https://cdn.pixabay.com/audio/2022/03/17/audio_7b519a1585.mp3"></audio>
+  <audio id="bassDropSound" src="https://cdn.pixabay.com/audio/2021/10/28/audio_d32cc7f426.mp3"></audio>
+
   <script>
-    setTimeout(() => {
-      window.location.href = "home.html";
-    }, 5200);
+    window.addEventListener('load', () => {
+      setTimeout(() => { document.getElementById('flareSound').play(); }, 0);
+      setTimeout(() => { document.getElementById('chimeSound').play(); }, 1500);
+      setTimeout(() => { document.getElementById('bassDropSound').play(); }, 4700);
+      setTimeout(() => { window.location.href = "home.html"; }, 5200);
+    });
   </script>
 </body>
 </html>
