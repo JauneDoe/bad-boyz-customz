@@ -37,10 +37,17 @@
     .intro h1 {
       color: #ffe600;
       font-size: 3.5rem;
+      text-align: center;
       opacity: 0;
       animation: revealText 2s ease-in 1.5s forwards;
       text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
       z-index: 1;
+      max-width: 90%;
+    }
+    @media (max-width: 600px) {
+      .intro h1 {
+        font-size: 2rem;
+      }
     }
     @keyframes flareMove {
       0% { transform: translateX(-100%); opacity: 0; }
