@@ -28,7 +28,7 @@
       color: #ffe600;
       text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
       opacity: 0;
-      animation: revealText 1s ease-in 0.3s forwards;
+      animation: revealText 0.8s ease-in 0.3s forwards;
     }
     .flare {
       position: absolute;
@@ -42,8 +42,7 @@
 
     @keyframes flareHalf {
       0% { transform: translateX(-100%); opacity: 0; }
-      50% { transform: translateX(-20%); opacity: 1; }
-      100% { transform: translateX(0%); opacity: 0; }
+      100% { transform: translateX(0%); opacity: 1; }
     }
     @keyframes revealText {
       0% { opacity: 0; }
@@ -60,7 +59,7 @@
   <script>
     setTimeout(() => {
       window.location.href = "home.html";
-    }, 1200);
+    }, 1100);
   </script>
 </body>
 </html>
