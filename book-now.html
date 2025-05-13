@@ -1,93 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book a Service - Bad Boyz Customz</title>
+  <title>Book Now – Bad Boyz Customz</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #111;
-      color: #fff;
-      padding: 40px 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #00aaff;
-      margin-bottom: 40px;
-    }
-    form {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #1c1c1c;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-      color: #ccc;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border: none;
-      border-radius: 5px;
-      background: #333;
-      color: #fff;
-      font-size: 1rem;
-    }
-    button {
-      margin-top: 30px;
-      width: 100%;
-      background: #00aaff;
-      color: white;
-      padding: 15px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button:hover {
-      background: #0077cc;
-    }
+    body, html { margin:0; padding:0; background:#111; color:#fff; font-family:'Segoe UI',sans-serif; }
+    .container { max-width:600px; margin:60px auto; padding:20px; background:#1c1c1c; border-radius:8px; box-shadow:0 0 15px rgba(0,0,0,0.5); }
+    h1 { text-align:center; color:#00aaff; margin-bottom:20px; }
+    label { display:block; margin:12px 0 4px; }
+    input, select, textarea { width:100%; padding:10px; border:none; border-radius:4px; font-size:1rem; background:#222; color:#fff; }
+    textarea { resize:vertical; min-height:100px; }
+    .cta-btn { width:100%; background:#00aaff; color:#111; padding:15px; font-size:1.1rem; border:none; border-radius:6px; text-align:center; font-weight:bold; cursor:pointer; margin-top:20px; transition:background .3s; }
+    .cta-btn:hover { background:#0077cc; }
+    .back-link { text-align:center; margin-top:20px; }
+    .back-link a { color:#00aaff; text-decoration:none; }
+    @media(max-width:600px){ .container{margin:20px;padding:15px;} }
   </style>
 </head>
 <body>
-  <h1>Book a Service</h1>
-  <form method="POST" action="form-handler.php">
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" required />
+  <div class="container">
+    <h1>Schedule Your Consultation</h1>
+    <form id="bookingForm">
+      <label for="fullname">Full Name *</label>
+      <input type="text" id="fullname" name="name" required/>
 
-    <label for="contact">Email or Phone</label>
-    <input type="text" id="contact" name="contact" required />
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="contact" required/>
 
-    <label for="vehicle">Vehicle Make & Model</label>
-    <input type="text" id="vehicle" name="vehicle" />
+      <label for="phone">Phone (optional)</label>
+      <input type="tel" id="phone" name="contact_phone"/>
 
-    <label for="service">Service Type</label>
-    <select id="service" name="service">
-      <option value="Window Tinting">Window Tinting</option>
-      <option value="Interior Detailing">Interior Detailing</option>
-      <option value="Exterior Wash">Exterior Wash</option>
-      <option value="Paint Protection">Paint Protection</option>
-      <option value="Scratch Removal">Scratch Removal</option>
-      <option value="Vehicle Wraps">Vehicle Wraps</option>
-      <option value="Audio Upgrades">Audio Upgrades</option>
-    </select>
+      <label for="vehicle">Vehicle Make & Model *</label>
+      <input type="text" id="vehicle" name="vehicle" required/>
 
-    <label for="datetime">Preferred Date/Time</label>
-    <input type="datetime-local" id="datetime" name="datetime" />
+      <label for="service">Service Inquiry *</label>
+      <select id="service" name="service" required>
+        <option value="">Select a Service…</option>
+        <option>Window Tinting</option>
+        <option>Interior Detailing</option>
+        <option>Exterior Wash</option>
+        <option>Paint Protection</option>
+        <option>Scratch Removal</option>
+        <option>Vehicle Wraps</option>
+        <option>Audio Upgrades</option>
+      </select>
 
-    <label for="notes">Additional Notes</label>
-    <textarea id="notes" name="notes" rows="4"></textarea>
+      <label for="appointment">Preferred Appointment Date & Time *</label>
+      <input type="text" id="appointment" name="datetime" required/>
 
-    <button type="submit">Submit Request</button>
-  </form>
+      <label for="message">Additional Notes</label>
+      <textarea id="message" name="notes"></textarea>
+
+      <button type="submit" class="cta-btn">Submit Inquiry</button>
+    </form>
+    <div class="back-link">
+      <a href="https://jaunedoe.github.io/bad-boyz-customz/">← Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    // 1) Auto-fill next weekday @ 9AM
+    window.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('appointment');
+      const d = new Date();
+      d.setDate(d.getDate()+1);
+      if      (d.getDay()===6) d.setDate(d.getDate()+2);
+      else if (d.getDay()===0) d.setDate(d.getDate()+1);
+      d.setHours(9,0,0,0);
+      const mm   = String(d.getMonth()+1).padStart(2,'0'),
+            dd   = String(d.getDate()).padStart(2,'0'),
+            yyyy = d.getFullYear(),
+            hrs  = d.getHours()%12||12,
+            mins = String(d.getMinutes()).padStart(2,'0'),
+            ap   = d.getHours()>=12?'PM':'AM';
+      input.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ap}`;
+    });
+
+    // 2) Submit via fetch to your Apps Script Web App
+    document.getElementById('bookingForm').addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const endpoint = 'https://script.google.com/macros/s/AKfycbwYGBI7bcdPbIGGidrYKcVt1S_y1LRftuP9d1dZVlyXSc--u2YCO9oTCtji8i_5FjH5Ug/exec';
+      console.log('Submitting to', endpoint);
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: new URLSearchParams(new FormData(e.target))
+        });
+        console.log('Network response', response);
+        const result = await response.json();
+        console.log('Result JSON', result);
+
+        if (result.result === 'success') {
+          window.location.href = 'https://jaunedoe.github.io/bad-boyz-customz/thank-you.html';
+        } else {
+          throw new Error(result.error || 'Unknown error');
+        }
+
+      } catch (err) {
+        console.error('Submission error:', err);
+        alert('Submission failed — please try again.');
+      }
+    });
+  </script>
 </body>
 </html>
