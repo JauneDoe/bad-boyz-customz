@@ -12,34 +12,32 @@
       color: #fff;
       font-family: 'Segoe UI', sans-serif;
     }
-
-    /* overlay + flare */
+    /* overlay + second half of flare */
     .intro-overlay {
-      position: fixed; top:0; left:0;
-      width:100%; height:100%;
-      background:#000;
-      display:flex; align-items:center; justify-content:center;
-      z-index:9999;
-      pointer-events:none;
-      opacity:1;
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      opacity: 1;
       transition: opacity .8s ease;
     }
     .intro-overlay.hidden {
-      opacity:0;
-      visibility:hidden;
+      opacity: 0;
+      pointer-events: none;
     }
     .intro-overlay h1 {
-      position: relative;
+      margin: 0;
       font-size: 3rem;
       color: #ffe600;
       text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
-      margin:0;
+      position: relative;
     }
     .intro-overlay .flare {
-      position: absolute; top:0; left:0;
-      width:200%; height:100%;
+      position: absolute; top: 0; left: 0;
+      width: 200%; height: 100%;
       background: linear-gradient(120deg, transparent, white, transparent);
-      opacity:0.8;
+      opacity: 0.8;
       transform: translateX(0%);
       animation: flareOut 1s ease-in-out forwards;
       animation-delay: 0.3s;
@@ -49,157 +47,60 @@
       100% { transform: translateX(100%); opacity: 0; }
     }
 
-    /* Hero */
+    /* hide overlay / show content */
+    #content { opacity: 0; transition: opacity .8s ease; }
+    #content.visible { opacity: 1; }
+
+    /* rest of your homepage styles… */
     .hero {
-      text-align:center;
-      padding:80px 20px 60px;
+      text-align: center;
+      padding: 80px 20px 60px;
       background: linear-gradient(to bottom, #000, #222);
     }
-    .hero h2 { font-size:2.5rem; color:#00aaff; margin-bottom:10px; }
-    .hero p  { font-size:1.2rem; color:#ccc; margin-bottom:20px; }
+    .hero h2 { font-size: 2.5rem; color: #00aaff; margin-bottom: 10px; }
+    .hero p  { font-size: 1.2rem; color: #ccc; margin-bottom: 20px; }
     .cta-btn {
-      background:#00aaff; color:#fff;
-      padding:14px 28px; border-radius:6px;
-      text-decoration:none; font-weight:bold;
+      background: #00aaff; color: #fff;
+      padding: 14px 28px; border-radius: 6px;
+      text-decoration: none; font-weight: bold;
       transition: background .3s;
     }
-    .cta-btn:hover { background:#0077cc; }
+    .cta-btn:hover { background: #0077cc; }
 
-    /* Services */
-    .services {
-      padding:60px 20px; background:#1c1c1c;
-    }
-    .services h3 { text-align:center; color:#00aaff; margin-bottom:20px; }
-    .service-list {
-      display:flex; flex-wrap:wrap; justify-content:center; gap:20px;
-    }
-    .service-wrapper {
-      width:200px; text-align:center;
-    }
-    .service-item {
-      background:#222; padding:20px;
-      border-radius:8px; font-weight:bold;
-      cursor:pointer;
-    }
-    .service-info {
-      display:none; margin-top:10px;
-      background:#222; color:#ccc;
-      padding:10px; border-radius:6px;
-      font-size:0.9rem; line-height:1.4;
-      text-align:left;
-    }
-
-    /* Why Us, CTA strip, Footer */
-    .why-us {
-      padding:60px 20px; background:#181818; text-align:center;
-    }
-    .why-us ul { list-style:none; padding:0; max-width:500px; margin:0 auto; }
-    .why-us li { margin:15px 0; font-size:1.1rem; }
-
-    .cta-strip {
-      background:#0077cc; text-align:center; padding:40px 20px;
-    }
-    .cta-strip h3 { color:#fff; margin-bottom:20px; }
-
-    footer {
-      background:#222; text-align:center; padding:20px 10px;
-      font-size:0.9rem; color:#aaa;
-    }
+    /* your services, why-us, cta-strip, footer… */
   </style>
-  <script>
-    // hide overlay after flare finishes
-    window.addEventListener('load', ()=>{
-      setTimeout(()=>{
-        document.querySelector('.intro-overlay').classList.add('hidden');
-      }, 1200);
-    });
-
-    // toggle service details
-    function toggleDetails(id) {
-      const el = document.getElementById(id);
-      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-    }
-  </script>
 </head>
 <body>
   <!-- overlay -->
   <div class="intro-overlay">
-    <h1>Bad Boyz Customz</h1>
+    <h1>Bad Boyz Customz</h1>
     <div class="flare"></div>
   </div>
 
-  <!-- real content -->
-  <section class="hero">
-    <h2>We Don’t Just Clean — We Transform</h2>
-    <p>Window Tinting • Detailing • Paint Restoration</p>
-    <a href="book-now.html" class="cta-btn">Book Now</a>
-  </section>
+  <!-- actual page -->
+  <div id="content">
+    <section class="hero">
+      <h2>We Don’t Just Clean — We Transform</h2>
+      <p>Window Tinting • Detailing • Paint Restoration</p>
+      <a href="book-now.html" class="cta-btn">Book Now</a>
+    </section>
 
-  <section class="services">
-    <h3>Our Services</h3>
-    <div class="service-list">
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('tint')">Window Tinting</div>
-        <div id="tint" class="service-info">
-          High‑quality tint with lifetime warranty.<br>
-          <strong>Starting at $99</strong>
-        </div>
-      </div>
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('interior')">Interior Detailing</div>
-        <div id="interior" class="service-info">
-          Deep cleaning and odor removal.<br>
-          <strong>Starting at $75</strong>
-        </div>
-      </div>
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('exterior')">Exterior Wash</div>
-        <div id="exterior" class="service-info">
-          Hand wash, wax, and rim shine.<br>
-          <strong>Starting at $45</strong>
-        </div>
-      </div>
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('paint')">Paint Restoration</div>
-        <div id="paint" class="service-info">
-          Ceramic coating & UV defense, buffing & clear‑coat restore.<br>
-          <strong>Starting at $150</strong>
-        </div>
-      </div>
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('wrap')">Vehicle Wraps</div>
-        <div id="wrap" class="service-info">
-          Color changes or full‑body wraps.<br>
-          <strong>Starting at $499</strong>
-        </div>
-      </div>
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('audio')">Audio Upgrades</div>
-        <div id="audio" class="service-info">
-          Speakers, subs & stereo installs.<br>
-          <strong>Starting at $120</strong>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- …rest of your home markup… -->
+  </div>
 
-  <section class="why-us">
-    <h3>Why Choose Bad Boyz Customz?</h3>
-    <ul>
-      <li>✔ Certified Technicians</li>
-      <li>✔ Same‑Day Turnaround</li>
-      <li>✔ Mobile Service Available</li>
-    </ul>
-  </section>
-
-  <section class="cta-strip">
-    <h3>Your Ride Deserves Better — Let’s Go.</h3>
-    <a href="book-now.html" class="cta-btn">Request Service</a>
-  </section>
-
-  <footer>
-    © 2025 Bad Boyz Customz. All Rights Reserved.<br>
-    Instagram | Facebook | Contact
-  </footer>
+  <script>
+    // once loaded, fade overlay out and show content
+    window.addEventListener('load', () => {
+      setTimeout(()=>{
+        document.querySelector('.intro-overlay').classList.add('hidden');
+        document.getElementById('content').classList.add('visible');
+      }, 1200);
+    });
+    // safety in case load hangs
+    setTimeout(()=>{
+      document.querySelector('.intro-overlay').classList.add('hidden');
+      document.getElementById('content').classList.add('visible');
+    }, 3000);
+  </script>
 </body>
 </html>
