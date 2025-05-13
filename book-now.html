@@ -128,15 +128,11 @@
     window.addEventListener('DOMContentLoaded', () => {
       const input = document.getElementById('appointment');
       let date = new Date();
-      // move to tomorrow
       date.setDate(date.getDate() + 1);
-      // if Saturday (6) or Sunday (0), skip to Monday
       if (date.getDay() === 6) date.setDate(date.getDate() + 2);
       else if (date.getDay() === 0) date.setDate(date.getDate() + 1);
-      // set 9 AM
       date.setHours(9, 0, 0, 0);
 
-      // format MM/DD/YYYY, h:mm AM/PM
       const mm = String(date.getMonth() + 1).padStart(2, '0');
       const dd = String(date.getDate()).padStart(2, '0');
       const yyyy = date.getFullYear();
@@ -147,10 +143,10 @@
       input.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ampm}`;
     });
 
-    // Submit handler stays the same
+    // Submit handler
     document.getElementById('bookingForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const endpoint = "https://script.google.com/macros/s/AKfycbw3kKhz0pr-_d_s1GiKhGk8D20m4LZC8luyu5Z51qFAjSP3vFOVsxNNp-rw0u6brN7-DQ/exec";
+      const endpoint = "https://script.google.com/macros/s/AKfycbxIymXfC5LSRNXcz2uoNL_LEkX3lHTKdr2hYykP9-nYEXlCYx8YcyF81hMFJjYU4rLqUw/exec";
       const formData = new URLSearchParams(new FormData(this));
       try {
         await fetch(endpoint, { method: 'POST', body: formData });
