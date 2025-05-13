@@ -3,47 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Schedule Your Consultation</title>
+  <title>Book Now – Bad Boyz Customz</title>
   <style>
+    /* … your existing CSS … */
     body, html { margin:0; padding:0; background:#111; color:#fff; font-family:'Segoe UI',sans-serif; }
-    .container {
-      max-width:600px; margin:60px auto; padding:20px;
-      background:#1c1c1c; border-radius:8px; box-shadow:0 0 15px rgba(0,0,0,0.5);
-    }
-    h1 { text-align:center; color:#00aaff; margin-bottom:20px; }
+    .container { max-width:600px; margin:60px auto; padding:20px; background:#1c1c1c; border-radius:8px; }
+    h1 { text-align:center; color:#00aaff; }
     label { display:block; margin:12px 0 4px; }
-    input, select, textarea {
-      width:100%; padding:10px; border:none; border-radius:4px; font-size:1rem;
-    }
-    input, select, textarea { background:#333; color:#fff; }
-    textarea { resize:vertical; min-height:100px; background:#222; }
-    .cta-btn {
-      width:100%; background:#00aaff; color:#111; padding:15px; font-size:1.1rem;
-      border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:20px;
-      transition:background 0.3s;
-    }
+    input, select, textarea { width:100%; padding:10px; border:none; border-radius:4px; font-size:1rem; }
+    input, select, textarea { background:#222; color:#fff; }
+    .cta-btn { display:block; width:100%; background:#00aaff; color:#111; padding:15px; font-size:1.1rem;
+               border:none; border-radius:6px; text-align:center; font-weight:bold; cursor:pointer; }
     .cta-btn:hover { background:#0077cc; }
     .back-link { text-align:center; margin-top:20px; }
     .back-link a { color:#00aaff; text-decoration:none; }
-    @media(max-width:600px){ .container{margin:20px;padding:15px;} }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Schedule Your Consultation</h1>
     <form id="bookingForm">
-      <label for="fullname">Full Name</label>
+      <label for="fullname">Full Name *</label>
       <input type="text" id="fullname" name="name" required />
 
-      <label for="email">Email</label>
+      <label for="email">Email *</label>
       <input type="email" id="email" name="contact" required />
 
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="contact_phone" placeholder="Optional" />
+      <label for="phone">Phone (optional)</label>
+      <input type="tel" id="phone" name="contact_phone" />
 
-      <label for="service">Service Inquiry</label>
+      <label for="service">Service Inquiry *</label>
       <select id="service" name="service" required>
-        <option value="">Select a Service</option>
+        <option value="">Select a service…</option>
         <option>Window Tinting</option>
         <option>Interior Detailing</option>
         <option>Exterior Wash</option>
@@ -53,54 +44,52 @@
         <option>Audio Upgrades</option>
       </select>
 
-      <label for="appointment">Preferred Appointment Date &amp; Time</label>
-      <input type="text" id="appointment" name="datetime" placeholder="MM/DD/YYYY, 9:00 AM" required />
+      <label for="appointment">Preferred Appointment *</label>
+      <input type="text" id="appointment" name="datetime" required />
 
-      <label for="message">Additional Notes/Questions</label>
+      <label for="message">Additional Notes</label>
       <textarea id="message" name="notes"></textarea>
 
       <button type="submit" class="cta-btn">Submit Inquiry</button>
     </form>
+
     <div class="back-link">
-      <a href="https://jaunedoe.github.io/bad-boyz-customz/">← Back to Homepage</a>
+      <a href="https://jaunedoe.github.io/bad-boyz-customz/">← Back to Home</a>
     </div>
   </div>
 
   <script>
-    // Auto‑fill next weekday at 9 AM
-    window.addEventListener('DOMContentLoaded', ()=>{
-      let d = new Date();
+    // Auto‑fill next weekday @ 9 AM
+    window.addEventListener('DOMContentLoaded',()=> {
+      let d=new Date();
       d.setDate(d.getDate()+1);
-      if (d.getDay()===6) d.setDate(d.getDate()+2);
-      else if (d.getDay()===0) d.setDate(d.getDate()+1);
+      if(d.getDay()===6) d.setDate(d.getDate()+2);
+      if(d.getDay()===0) d.setDate(d.getDate()+1);
       d.setHours(9,0,0,0);
-      const mm = String(d.getMonth()+1).padStart(2,'0'),
-            dd = String(d.getDate()).padStart(2,'0'),
-            yyyy = d.getFullYear(),
-            h = d.getHours()%12||12,
-            m = String(d.getMinutes()).padStart(2,'0'),
-            ap = d.getHours()>=12?'PM':'AM';
-      document.getElementById('appointment')
-        .value = `${mm}/${dd}/${yyyy}, ${h}:${m} ${ap}`;
+      const h12=d.getHours()%12||12,
+            ampm=d.getHours()>=12?'PM':'AM',
+            str=`${String(d.getMonth()+1).padStart(2,'0')}/`+
+                `${String(d.getDate()).padStart(2,'0')}/`+
+                `${d.getFullYear()}, ${h12}:`+
+                `${String(d.getMinutes()).padStart(2,'0')} ${ampm}`;
+      document.getElementById('appointment').value=str;
     });
 
-    // Submit → Apps Script endpoint → thank‑you page
-    document.getElementById('bookingForm')
-      .addEventListener('submit', async e=>{
-        e.preventDefault();
-        const ep = 'https://script.google.com/macros/s/AKfycbwYGBI7bcdPbIGGidrYKcVt1S_y1LRftuP9d1dZVlyXSc--u2YCO9oTCtji8i_5FjH5Ug/exec';
-        const res = await fetch(ep,{
-          method:'POST',
-          body: new URLSearchParams(new FormData(e.target))
-        });
-        const json = await res.json();
-        if (json.result==='success') {
-          window.location.href = 'https://jaunedoe.github.io/bad-boyz-customz/thank-you.html';
-        } else {
-          alert('Error submitting form – please try again.');
-          console.error(json.error);
-        }
-      });
+    // POST into your Apps Script Web App
+    document.getElementById('bookingForm').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const url = 'https://script.google.com/macros/s/AKfycbwYGBI7bcdPbIGGidrYKcVt1S_y1LRftuP9d1dZVlyXSc--u2YCO9oTCtji8i_5FjH5Ug/exec';
+      const body = new URLSearchParams(new FormData(e.target));
+      try {
+        const res = await fetch(url, { method:'POST', body });
+        if (!res.ok) throw new Error(res.statusText);
+        // redirect to your thank-you
+        window.location.href = 'https://jaunedoe.github.io/bad-boyz-customz/thank-you.html';
+      } catch(err) {
+        console.error(err);
+        alert('Something went wrong – please try again.');
+      }
+    });
   </script>
 </body>
 </html>
