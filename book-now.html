@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book Now – Bad Boyz Customz</title>
+  <title>Book Now – Bad Boyz Customz</title>
   <style>
     body, html { margin:0; padding:0; background:#111; color:#fff; font-family:'Segoe UI',sans-serif; }
     .container { max-width:600px; margin:60px auto; padding:20px; background:#1c1c1c; border-radius:8px; box-shadow:0 0 15px rgba(0,0,0,0.5); }
@@ -11,7 +11,7 @@
     label { display:block; margin:12px 0 4px; }
     input, select, textarea { width:100%; padding:10px; border:none; border-radius:4px; font-size:1rem; background:#222; color:#fff; }
     textarea { resize:vertical; min-height:100px; }
-    .cta-btn { width:100%; background:#00aaff; color:#111; padding:15px; font-size:1.1rem; border:none; border-radius:6px; text-align:center; font-weight:bold; cursor:pointer; margin-top:20px; transition:background .3s; }
+    .cta-btn { width:100%; background:#00aaff; color:#111; padding:15px; font-size:1.1rem; border:none; border-radius:6px; text-align:center; font-weight:bold; margin-top:20px; transition:background .3s; cursor:pointer; }
     .cta-btn:hover { background:#0077cc; }
     .back-link { text-align:center; margin-top:20px; }
     .back-link a { color:#00aaff; text-decoration:none; }
@@ -40,13 +40,12 @@
         <option>Window Tinting</option>
         <option>Interior Detailing</option>
         <option>Exterior Wash</option>
-        <option>Paint Protection</option>
-        <option>Scratch Removal</option>
+        <option>Paint Restoration</option>
         <option>Vehicle Wraps</option>
         <option>Audio Upgrades</option>
       </select>
 
-      <label for="appointment">Preferred Appointment Date & Time *</label>
+      <label for="appointment">Preferred Appointment Date & Time *</label>
       <input type="text" id="appointment" name="datetime" required/>
 
       <label for="message">Additional Notes</label>
@@ -55,12 +54,12 @@
       <button type="submit" class="cta-btn">Submit Inquiry</button>
     </form>
     <div class="back-link">
-      <a href="https://jaunedoe.github.io/bad-boyz-customz/">← Back to Home</a>
+      <a href="home.html">← Back to Home</a>
     </div>
   </div>
 
   <script>
-    // 1) Auto-fill next weekday @ 9AM
+    // auto‑fill next weekday @9 AM
     window.addEventListener('DOMContentLoaded', () => {
       const input = document.getElementById('appointment');
       const d = new Date();
@@ -69,38 +68,31 @@
       else if (d.getDay()===0) d.setDate(d.getDate()+1);
       d.setHours(9,0,0,0);
       const mm   = String(d.getMonth()+1).padStart(2,'0'),
-            dd   = String(d.getDate()).padStart(2,'0'),
+            dd   = String(d.getDate()   ).padStart(2,'0'),
             yyyy = d.getFullYear(),
-            hrs  = d.getHours()%12||12,
+            hrs  = d.getHours()%12 || 12,
             mins = String(d.getMinutes()).padStart(2,'0'),
-            ap   = d.getHours()>=12?'PM':'AM';
+            ap   = d.getHours()>=12 ? 'PM':'AM';
       input.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ap}`;
     });
 
-    // 2) Submit via fetch to your Apps Script Web App
+    // submit to your Apps Script
     document.getElementById('bookingForm').addEventListener('submit', async e => {
       e.preventDefault();
-
       const endpoint = 'https://script.google.com/macros/s/AKfycbwYGBI7bcdPbIGGidrYKcVt1S_y1LRftuP9d1dZVlyXSc--u2YCO9oTCtji8i_5FjH5Ug/exec';
-      console.log('Submitting to', endpoint);
-
       try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
+        const resp = await fetch(endpoint, {
+          method:'POST',
           body: new URLSearchParams(new FormData(e.target))
         });
-        console.log('Network response', response);
-        const result = await response.json();
-        console.log('Result JSON', result);
-
-        if (result.result === 'success') {
-          window.location.href = 'https://jaunedoe.github.io/bad-boyz-customz/thank-you.html';
+        const result = await resp.json();
+        if (result.result==='success') {
+          window.location.href = 'thank-you.html';
         } else {
-          throw new Error(result.error || 'Unknown error');
+          throw new Error(result.error||'Unknown error');
         }
-
-      } catch (err) {
-        console.error('Submission error:', err);
+      } catch(err) {
+        console.error(err);
         alert('Submission failed — please try again.');
       }
     });
