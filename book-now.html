@@ -61,7 +61,7 @@
 <body>
   <h1>Book a Service</h1>
 
-  <!-- hidden iframe to swallow the Google Form redirect -->
+  <!-- hidden iframe to swallow Google Form response redirect -->
   <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <form
@@ -70,6 +70,13 @@
     target="hidden_iframe"
     onsubmit="setTimeout(function(){ window.location='thank-you.html'; }, 500);"
   >
+    <!-- Required hidden fields copied from the real form -->
+    <input type="hidden" name="fvv" value="1">
+    <input type="hidden" name="partialResponse" value="[null,null,&quot;8094812378314497976&quot;]">
+    <input type="hidden" name="pageHistory" value="0">
+    <input type="hidden" name="fbzx" value="8094812378314497976">
+    <input type="hidden" name="submissionTimestamp" value="-1">
+
     <label for="name">Full Name</label>
     <input type="text" id="name" name="entry.1976357159" required />
 
