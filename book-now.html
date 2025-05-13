@@ -3,18 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book Now – Bad Boyz Customz</title>
+  <title>Schedule Your Consultation</title>
   <style>
-    /* … your existing styles … */
+    body, html { margin:0; padding:0; background:#111; color:#fff; font-family:'Segoe UI',sans-serif; }
+    .container {
+      max-width:600px; margin:60px auto; padding:20px;
+      background:#1c1c1c; border-radius:8px; box-shadow:0 0 15px rgba(0,0,0,0.5);
+    }
+    h1 { text-align:center; color:#00aaff; margin-bottom:20px; }
+    label { display:block; margin:12px 0 4px; }
+    input, select, textarea {
+      width:100%; padding:10px; border:none; border-radius:4px; font-size:1rem;
+    }
+    input, select, textarea { background:#333; color:#fff; }
+    textarea { resize:vertical; min-height:100px; background:#222; }
+    .cta-btn {
+      width:100%; background:#00aaff; color:#111; padding:15px; font-size:1.1rem;
+      border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:20px;
+      transition:background 0.3s;
+    }
+    .cta-btn:hover { background:#0077cc; }
+    .back-link { text-align:center; margin-top:20px; }
+    .back-link a { color:#00aaff; text-decoration:none; }
+    @media(max-width:600px){ .container{margin:20px;padding:15px;} }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Schedule Your Consultation</h1>
-
-    <!-- 1) action points to your new Apps Script Web App URL -->
-    <form id="bookingForm" action="https://script.google.com/macros/s/AKfycbxozRsV7GgEoI1LMug--4dCbxwVsIUoeLdABgBkZSaULCZ6E0KBzdrcp70n4tzvL6GBAg/exec" method="POST">
-      
+    <form id="bookingForm">
       <label for="fullname">Full Name</label>
       <input type="text" id="fullname" name="name" required />
 
@@ -36,41 +53,54 @@
         <option>Audio Upgrades</option>
       </select>
 
-      <label for="appointment">Preferred Appointment Date & Time</label>
-      <input type="text" id="appointment" name="datetime" placeholder="MM/DD/YYYY, 9:00 AM" required />
+      <label for="appointment">Preferred Appointment Date &amp; Time</label>
+      <input type="text" id="appointment" name="datetime" placeholder="MM/DD/YYYY, 9:00 AM" required />
 
       <label for="message">Additional Notes/Questions</label>
-      <textarea id="message" name="notes" placeholder="Enter any additional details here…"></textarea>
+      <textarea id="message" name="notes"></textarea>
 
       <button type="submit" class="cta-btn">Submit Inquiry</button>
     </form>
-
     <div class="back-link">
       <a href="https://jaunedoe.github.io/bad-boyz-customz/">← Back to Homepage</a>
     </div>
   </div>
 
   <script>
-    // auto‑fill next weekday @9AM (your existing code)
-    window.addEventListener('DOMContentLoaded', () => {
-      const input = document.getElementById('appointment');
+    // Auto‑fill next weekday at 9 AM
+    window.addEventListener('DOMContentLoaded', ()=>{
       let d = new Date();
-      d.setDate(d.getDate() + 1);
-      if (d.getDay() === 6) d.setDate(d.getDate() + 2);
-      else if (d.getDay() === 0) d.setDate(d.getDate() + 1);
-      d.setHours(9, 0, 0, 0);
+      d.setDate(d.getDate()+1);
+      if (d.getDay()===6) d.setDate(d.getDate()+2);
+      else if (d.getDay()===0) d.setDate(d.getDate()+1);
+      d.setHours(9,0,0,0);
       const mm = String(d.getMonth()+1).padStart(2,'0'),
             dd = String(d.getDate()).padStart(2,'0'),
-            yyyy = d.getFullYear();
-      let hrs = d.getHours(), ampm = hrs >= 12 ? 'PM':'AM';
-      hrs = hrs%12||12; const mins = String(d.getMinutes()).padStart(2,'0');
-      input.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ampm}`;
+            yyyy = d.getFullYear(),
+            h = d.getHours()%12||12,
+            m = String(d.getMinutes()).padStart(2,'0'),
+            ap = d.getHours()>=12?'PM':'AM';
+      document.getElementById('appointment')
+        .value = `${mm}/${dd}/${yyyy}, ${h}:${m} ${ap}`;
     });
 
-    // optional: intercept and show a “thanks” page
-    document.getElementById('bookingForm').addEventListener('submit', e => {
-      // let it POST normally; then you can redirect in doPost response if you want
-    });
+    // Submit → Apps Script endpoint → thank‑you page
+    document.getElementById('bookingForm')
+      .addEventListener('submit', async e=>{
+        e.preventDefault();
+        const ep = 'https://script.google.com/macros/s/AKfycbwYGBI7bcdPbIGGidrYKcVt1S_y1LRftuP9d1dZVlyXSc--u2YCO9oTCtji8i_5FjH5Ug/exec';
+        const res = await fetch(ep,{
+          method:'POST',
+          body: new URLSearchParams(new FormData(e.target))
+        });
+        const json = await res.json();
+        if (json.result==='success') {
+          window.location.href = 'https://jaunedoe.github.io/bad-boyz-customz/thank-you.html';
+        } else {
+          alert('Error submitting form – please try again.');
+          console.error(json.error);
+        }
+      });
   </script>
 </body>
 </html>
