@@ -28,7 +28,7 @@
       color: #ffe600;
       text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
       opacity: 0;
-      animation: revealText 1s ease-in 0.5s forwards;
+      animation: revealText 1s ease-in 0.3s forwards;
     }
     .flare {
       position: absolute;
@@ -37,13 +37,13 @@
       background: linear-gradient(120deg, transparent, white, transparent);
       opacity: 0.8;
       transform: translateX(-100%);
-      animation: flareMove 1.5s ease-in-out forwards;
+      animation: flareHalf 1s ease-in-out forwards;
     }
 
-    @keyframes flareMove {
+    @keyframes flareHalf {
       0% { transform: translateX(-100%); opacity: 0; }
-      40% { opacity: 1; }
-      100% { transform: translateX(100%); opacity: 0; }
+      50% { transform: translateX(-20%); opacity: 1; }
+      100% { transform: translateX(0%); opacity: 0; }
     }
     @keyframes revealText {
       0% { opacity: 0; }
@@ -60,7 +60,7 @@
   <script>
     setTimeout(() => {
       window.location.href = "home.html";
-    }, 2000);
+    }, 1200);
   </script>
 </body>
 </html>
