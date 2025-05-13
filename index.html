@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bad Boyz Customz - Intro</title>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100vh;
-      width: 100vw;
-      overflow: hidden;
       background: #000;
       font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
     }
     .intro {
       position: fixed;
@@ -23,31 +22,13 @@
       align-items: center;
       justify-content: center;
       background: black;
-      animation: fadeOut 2s ease 4s forwards;
-      text-align: center;
-    }
-    .intro-content {
-      max-width: 100%;
-      width: 100%;
-      padding: 0 20px;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
     }
     .intro h1 {
-      font-size: 3.5rem;
-      margin: 0;
-      opacity: 0;
-      animation: revealText 2s ease-in 1.5s forwards;
+      font-size: 3rem;
       color: #ffe600;
       text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
-    }
-    @media (max-width: 600px) {
-      .intro h1 {
-        font-size: 2.2rem;
-      }
+      opacity: 0;
+      animation: revealText 1s ease-in 0.5s forwards;
     }
     .flare {
       position: absolute;
@@ -56,8 +37,9 @@
       background: linear-gradient(120deg, transparent, white, transparent);
       opacity: 0.8;
       transform: translateX(-100%);
-      animation: flareMove 3s ease-in-out forwards;
+      animation: flareMove 1.5s ease-in-out forwards;
     }
+
     @keyframes flareMove {
       0% { transform: translateX(-100%); opacity: 0; }
       40% { opacity: 1; }
@@ -67,23 +49,18 @@
       0% { opacity: 0; }
       100% { opacity: 1; }
     }
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
   </style>
 </head>
 <body>
   <div class="intro">
-    <div class="intro-content">
-      <h1>Bad Boyz Customz</h1>
-    </div>
+    <h1>Bad Boyz Customz</h1>
     <div class="flare"></div>
   </div>
 
   <script>
     setTimeout(() => {
       window.location.href = "home.html";
-    }, 5000);
+    }, 2000);
   </script>
 </body>
 </html>
