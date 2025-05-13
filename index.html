@@ -1,65 +1,68 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bad Boyz Customz - Intro</title>
+  <title>Bad Boyz Customz</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: #000;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-    }
-    .intro {
+    /* ─── SPLASH OVERLAY ───────────────────────────────── */
+    #splash {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      width: 100vw;
+      height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: black;
+      align-items: center;
+      background: #000;
+      z-index: 9999;
     }
-    .intro h1 {
-      font-size: 3rem;
-      color: #ffe600;
-      text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
+    #splash h1 {
+      margin: 0;
+      font-size: 4rem;
+      line-height: 1.2;
+      text-align: center;
+      color: #ffff88;
+      filter: drop-shadow(0 0 20px #ffff88);
+    }
+    #splash.fade-out {
       opacity: 0;
-      animation: revealText 0.8s ease-in 0.3s forwards;
-    }
-    .flare {
-      position: absolute;
-      width: 200%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, white, transparent);
-      opacity: 0.8;
-      transform: translateX(-100%);
-      animation: flareHalf 1s ease-in-out forwards;
+      transition: opacity 0.8s ease;
     }
 
-    @keyframes flareHalf {
-      0% { transform: translateX(-100%); opacity: 0; }
-      100% { transform: translateX(0%); opacity: 1; }
+    /* ─── YOUR EXISTING SITE STYLES ────────────────────── */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
     }
-    @keyframes revealText {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
+    /* … paste in the rest of your index.css or inline styles here … */
   </style>
 </head>
 <body>
-  <div class="intro">
-    <h1>Bad Boyz Customz</h1>
-    <div class="flare"></div>
+
+  <!-- SPLASH INTRO -->
+  <div id="splash">
+    <h1>Bad Boyz<br>Customz</h1>
+  </div>
+
+  <!-- ─── YOUR REAL PAGE CONTENT ──────────────────────── -->
+  <div id="content">
+    <!-- 
+      Paste everything from your old index.html body here,
+      e.g. header/nav, hero section, “Our Services” buttons, etc.
+    -->
   </div>
 
   <script>
-    setTimeout(() => {
-      window.location.href = "home.html";
-    }, 1100);
+    // fade the splash out once everything’s loaded
+    window.addEventListener('load', () => {
+      const splash = document.getElementById('splash');
+      splash.classList.add('fade-out');
+      // remove it from the DOM so it can't block clicks/scroll
+      setTimeout(() => splash.remove(), 800);
+    });
   </script>
 </body>
 </html>
