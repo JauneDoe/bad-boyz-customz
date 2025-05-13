@@ -54,54 +54,44 @@
       <button type="submit" class="cta-btn">Submit Inquiry</button>
     </form>
     <div class="back-link">
-      <a href="https://jaunedoe.github.io/bad-boyz-customz/">← Back to Home</a>
+      <a href="home.html">← Back to Home</a>
     </div>
   </div>
 
   <script>
-    // 1) Auto-fill next weekday @ 9AM
+    // auto‑fill tomorrow @9AM
     window.addEventListener('DOMContentLoaded', () => {
-      const input = document.getElementById('appointment');
+      const i = document.getElementById('appointment');
       const d = new Date();
       d.setDate(d.getDate()+1);
-      if      (d.getDay()===6) d.setDate(d.getDate()+2);
-      else if (d.getDay()===0) d.setDate(d.getDate()+1);
+      if (d.getDay()===6) d.setDate(d.getDate()+2);
+      if (d.getDay()===0) d.setDate(d.getDate()+1);
       d.setHours(9,0,0,0);
-      const mm   = String(d.getMonth()+1).padStart(2,'0'),
-            dd   = String(d.getDate()).padStart(2,'0'),
+      const mm = String(d.getMonth()+1).padStart(2,'0'),
+            dd = String(d.getDate()).padStart(2,'0'),
             yyyy = d.getFullYear(),
-            hrs  = d.getHours()%12||12,
-            mins = String(d.getMinutes()).padStart(2,'0'),
-            ap   = d.getHours()>=12?'PM':'AM';
-      input.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ap}`;
+            hrs = d.getHours()%12||12,
+            mins=String(d.getMinutes()).padStart(2,'0'),
+            ap  = d.getHours()>=12?'PM':'AM';
+      i.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ap}`;
     });
 
-    // 2) Submit via fetch to your Apps Script Web App
-    document.getElementById('bookingForm').addEventListener('submit', async e => {
+    // submit to your Apps Script
+    document.getElementById('bookingForm').addEventListener('submit', async e=>{
       e.preventDefault();
-
-      // ← your deployed Web App URL here:
       const endpoint = 'https://script.google.com/macros/s/AKfycbxZLCVtiu6lkhWqGzaAse4nb4G9y8dGsdYzWy2QUdfcr90jfvLQQepe50dgDRl71WMY/exec';
-      console.log('Submitting to', endpoint);
-
       try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
+        const res = await fetch(endpoint, {
+          method:'POST',
           body: new URLSearchParams(new FormData(e.target))
         });
-        console.log('Network response', response);
-        const result = await response.json();
-        console.log('Result JSON', result);
-
-        if (result.result === 'success') {
-          window.location.href = 'https://jaunedoe.github.io/bad-boyz-customz/thank-you.html';
-        } else {
-          throw new Error(result.error || 'Unknown error');
-        }
-
-      } catch (err) {
-        console.error('Submission error:', err);
+        const result = await res.json();
+        if (result.result==='success') {
+          window.location.href = 'thank-you.html';
+        } else throw new Error(result.error||'Unknown');
+      } catch(err) {
         alert('Submission failed—please try again.');
+        console.error(err);
       }
     });
   </script>
