@@ -1,113 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bad Boyz Customz</title>
   <style>
-    /* ─── RESET & BASE ───────────────────────────────── */
     html, body {
-      margin:0; padding:0;
-      background:#111; color:#fff;
-      font-family:'Segoe UI',sans-serif;
-      min-height:100vh; overflow-x:hidden;
+      margin: 0; padding: 0;
+      background: #000;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    /* ─── SPLASH OVERLAY ─────────────────────────────── */
+    /* Splash Overlay */
     #splash {
-      position:fixed; top:0; left:0;
-      width:100%; height:100%;
-      background:#000;
-      display:flex; align-items:center; justify-content:center;
-      z-index:9999;
-      opacity:1;
-      transition:opacity .8s ease;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      overflow: hidden;
     }
+
     #splash h1 {
-      position:absolute;
-      font-size:3rem;
-      color:#ffe600;
-      text-shadow:0 0 15px #ffe600, 0 0 30px #fff;
-      opacity:0;
-      /* new combined animation: reveal at 50%, hide at 90% */
-      animation:textFlow 1.3s ease-in-out forwards;
+      font-size: 3rem;
+      color: #ffe600;
+      text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
+      opacity: 0;
+      transform: scale(1.2);
+      animation: revealText 1.2s ease-out forwards;
+      animation-delay: 0.3s;
+      z-index: 1;
     }
+
     .flare {
-      position:absolute; top:0; left:0;
-      width:200%; height:100%;
-      background:linear-gradient(120deg,transparent,white,transparent);
-      opacity:0;
-      transform:translateX(-100%);
-      animation:flareSweep 1s ease-in-out forwards;
+      position: absolute;
+      width: 150%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, white, transparent);
+      opacity: 0.8;
+      transform: translateX(-100%);
+      animation: flareSweep 1.2s ease-in-out forwards;
     }
 
     @keyframes flareSweep {
-      0%   { transform:translateX(-100%); opacity:0; }
-      30%  { opacity:.8; }
-      100% { transform:translateX(200%); opacity:0; }
-    }
-    @keyframes textFlow {
-      0%, 40%   { opacity:0; }
-      50%, 80%  { opacity:1; }
-      100%      { opacity:0; }
+      0% { transform: translateX(-100%); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateX(100%); opacity: 0; }
     }
 
-    /* ─── MAIN CONTENT cross‑fade ────────────────────── */
-    #content {
-      opacity:0;
-      transition:opacity .8s ease;
+    @keyframes revealText {
+      0% { opacity: 0; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
     }
-    #content.visible { opacity:1; }
 
-    /* ─── YOUR HERO & PAGES ─────────────────────────── */
+    #splash.fade-out {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #main-content {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+    }
+
     .hero {
-      text-align:center;
-      padding:80px 20px 60px;
-      background:linear-gradient(to bottom,#000,#222);
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(to bottom, #000000, #222222);
     }
-    .hero h2 { font-size:2.5rem; color:#00aaff; margin-bottom:10px; }
-    .hero p  { font-size:1.2rem; color:#ccc; margin-bottom:20px; }
-    .cta-btn {
-      display:inline-block;
-      background:#00aaff; color:#fff;
-      padding:14px 28px; font-size:1rem;
-      border-radius:6px; text-decoration:none;
-      font-weight:bold; transition:background .3s;
-    }
-    .cta-btn:hover { background:#0077cc; }
 
-    /* …rest of your services/why‑us/footer styles… */
+    .hero h2 {
+      font-size: 2.5rem;
+      color: #00aaff;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .cta-btn {
+      background: #00aaff;
+      color: #fff;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+      display: inline-block;
+    }
+
+    .cta-btn:hover {
+      background: #0077cc;
+    }
+
+    footer {
+      background: #222;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Intro Flare Splash -->
   <div id="splash">
-    <h1>Bad Boyz Customz</h1>
+    <h1>Bad Boyz Customz</h1>
     <div class="flare"></div>
   </div>
 
-  <div id="content">
-    <!-- 👉 your existing hero, services, etc… -->
+  <!-- Main Site Content -->
+  <div id="main-content">
     <section class="hero">
       <h2>We Don’t Just Clean — We Transform</h2>
       <p>Window Tinting • Detailing • Paint Restoration</p>
-      <a href="book-now.html" class="cta-btn">Book Now</a>
+      <a href="book-now.html" class="cta-btn">Book Now</a>
     </section>
-    <!-- …etc… -->
+
+    <footer>
+      © 2025 Bad Boyz Customz. All Rights Reserved.
+    </footer>
   </div>
 
   <script>
-    function toggleDetails(id) {
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-
     window.addEventListener('load', () => {
-      // wait for flare (1s) + a bit extra = 1.3s
+      const splash = document.getElementById('splash');
+      const content = document.getElementById('main-content');
+
       setTimeout(() => {
-        document.getElementById('splash').style.opacity = '0';
-        document.getElementById('content').classList.add('visible');
-        setTimeout(()=> document.getElementById('splash').remove(), 800);
-      }, 1300);
+        splash.classList.add('fade-out');
+        content.classList.add('visible');
+        setTimeout(() => splash.remove(), 1000);
+      }, 1500);
     });
   </script>
 </body>
