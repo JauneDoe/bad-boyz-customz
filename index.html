@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bad Boyz Customz - Intro</title>
+  <title>Bad Boyz Customz – Intro</title>
   <style>
     html, body {
       margin: 0; padding: 0;
       width: 100vw; height: 100vh;
       overflow: hidden;
       background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-family: 'Segoe UI', sans-serif;
     }
     .intro {
@@ -38,7 +36,7 @@
     }
     @keyframes flareIn {
       0%   { transform: translateX(-100%); opacity: 0; }
-      100% { transform: translateX(0%);     opacity: 1; }
+      100% { transform: translateX(0%);       opacity: 1; }
     }
     @keyframes revealText {
       to { opacity: 1; }
@@ -47,12 +45,13 @@
 </head>
 <body>
   <div class="intro">
-    <h1>Bad Boyz Customz</h1>
+    <h1>Bad Boyz Customz</h1>
     <div class="flare"></div>
   </div>
+
   <script>
-    // after splash, go to the real homepage
-    setTimeout(()=>{
+    // after the half‑flare/intro, jump to home.html
+    setTimeout(() => {
       window.location.href = 'home.html';
     }, 1100);
   </script>
