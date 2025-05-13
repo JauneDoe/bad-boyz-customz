@@ -1,197 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bad Boyz Customz</title>
   <style>
-    /* base reset */
-    * { box-sizing: border-box; }
-    body, html { margin:0; padding:0; width:100%; height:100%; overflow-x:hidden; background:#111; color:#fff; font-family:Segoe UI,sans-serif; }
-
-    /* 1) Intro full‑screen */
-    #intro {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background:#000; display:flex; align-items:center; justify-content:center;
-      z-index:9999; overflow:hidden;
-    }
-    #intro h1 {
-      color:#ffe600; font-size:3rem; text-align:center;
-      text-shadow:0 0 15px #ffe600,0 0 30px #fff;
-      opacity:0; animation:fadeInText 0.8s ease-in 0.4s forwards;
-    }
-    .flare {
-      position:absolute; top:0; left:-100%;
-      width:200%; height:100%;
-      background:linear-gradient(120deg,transparent,#fff,transparent);
-      opacity:0.8;
-      animation:flareMove 1s ease-in-out forwards;
-    }
-    @keyframes flareMove {
-      from { transform:translateX(0%); opacity:1; }
-      to   { transform:translateX(100%); opacity:0; }
-    }
-    @keyframes fadeInText {
-      to { opacity:1; }
-    }
-
-    /* 2) Content: hidden until fade */
-    #content {
-      opacity:0; transition:opacity .8s ease;
-    }
-    #content.ready {
-      opacity:1;
-    }
-
-    /* Hero */
-    .hero {
-      text-align:center; padding:60px 20px;
-      background:linear-gradient(to bottom,#000,#222);
-    }
-    .hero h2 { font-size:2.5rem; color:#00aaff; margin:0 0 .5em; }
-    .hero p  { color:#ccc; margin:0 0 1.5em; }
-    .cta-btn {
-      background:#00aaff; color:#111; padding:.8em 1.6em;
-      border:none; border-radius:6px; font-weight:bold;
-      text-decoration:none; display:inline-block;
-      transition:background .3s;
-    }
-    .cta-btn:hover { background:#0077cc; }
-
-    /* Services grid */
-    .services { padding:40px 20px; }
-    .services h3 { text-align:center; color:#00aaff; margin-bottom:.6em; }
-    .service-list {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:16px;
-      max-width:900px; margin:0 auto;
-    }
-    .service-wrapper { text-align:center; }
-    .service-item {
-      background:#222; padding:16px; border-radius:8px;
-      font-weight:bold; cursor:pointer;
-    }
-    .service-info {
-      display:none; margin-top:8px; text-align:left;
-      background:#222; color:#ccc; padding:10px; border-radius:6px;
-      font-size:.9rem; line-height:1.4;
-    }
-
-    /* Why us + CTA strip + footer */
-    .why-us { padding:40px 20px; background:#181818; text-align:center; }
-    .why-us ul { list-style:none; padding:0; margin:0 auto; max-width:360px; }
-    .why-us li { margin:.6em 0; font-size:1.1rem; }
-    .cta-strip { background:#0077cc; color:#fff; text-align:center; padding:30px 20px; }
-    .cta-strip h3 { margin:0 0 .8em; }
-    footer { background:#222; color:#aaa; text-align:center; padding:20px 10px; font-size:.9rem; }
-
-    /* RESPONSIVE TEXT CENTERS */
-    @media (max-width:500px) {
-      .hero h2 { font-size:2rem; }
-      #intro h1 { font-size:2rem; }
-    }
+    /* …all the CSS from my previous message… */
   </style>
 </head>
 <body>
-
-  <!-- 1️⃣ Intro Overlay -->
-  <div id="intro">
+  <!-- Splash -->
+  <div class="intro-overlay">
     <h1>Bad Boyz Customz</h1>
     <div class="flare"></div>
   </div>
 
-  <!-- 2️⃣ Main Content -->
-  <div id="content">
-    <section class="hero">
-      <h2>We Don’t Just Clean — We Transform</h2>
-      <p>Window Tinting • Detailing • Paint Restoration</p>
-      <a href="book‑now.html" class="cta-btn">Book Now</a>
-    </section>
+  <!-- Hero -->
+  <section class="hero">
+    <h2>We Don’t Just Clean — We Transform</h2>
+    <p>Window Tinting • Detailing • Paint Restoration</p>
+    <a href="book‑now.html" class="cta-btn">Book Now</a>
+  </section>
 
-    <section class="services">
-      <h3>Our Services</h3>
-      <div class="service-list">
-
-        <div class="service-wrapper">
-          <div class="service-item" onclick="toggle('tint')">Window Tinting</div>
-          <div id="tint" class="service-info">
-            High‑quality tint with lifetime warranty.<br>
-            <strong>Starting at $99</strong>
-          </div>
-        </div>
-
-        <div class="service-wrapper">
-          <div class="service-item" onclick="toggle('interior')">Interior Detailing</div>
-          <div id="interior" class="service-info">
-            Deep cleaning and odor removal.<br>
-            <strong>Starting at $75</strong>
-          </div>
-        </div>
-
-        <div class="service-wrapper">
-          <div class="service-item" onclick="toggle('exterior')">Exterior Wash</div>
-          <div id="exterior" class="service-info">
-            Hand wash, wax, and rim shine.<br>
-            <strong>Starting at $45</strong>
-          </div>
-        </div>
-
-        <div class="service-wrapper">
-          <div class="service-item" onclick="toggle('restoration')">Paint Restoration</div>
-          <div id="restoration" class="service-info">
-            Ceramic coating, UV defense, buffing & clear‑coat restore.<br>
-            <strong>Starting at $150</strong>
-          </div>
-        </div>
-
-        <div class="service-wrapper">
-          <div class="service-item" onclick="toggle('wrap')">Vehicle Wraps</div>
-          <div id="wrap" class="service-info">
-            Color changes or full‑body wraps.<br>
-            <strong>Starting at $499</strong>
-          </div>
-        </div>
-
-        <div class="service-wrapper">
-          <div class="service-item" onclick="toggle('audio')">Audio Upgrades</div>
-          <div id="audio" class="service-info">
-            Speakers, subs & stereo installs.<br>
-            <strong>Starting at $120</strong>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="why-us">
-      <h3>Why Choose Bad Boyz Customz?</h3>
-      <ul>
-        <li>✔ Certified Technicians</li>
-        <li>✔ Same‑Day Turnaround</li>
-        <li>✔ Mobile Service Available</li>
-      </ul>
-    </section>
-
-    <section class="cta-strip">
-      <h3>Your Ride Deserves Better — Let’s Go.</h3>
-      <a href="book‑now.html" class="cta-btn">Request Service</a>
-    </section>
-
-    <footer>© 2025 Bad Boyz Customz. All Rights Reserved.  Instagram | Facebook | Contact</footer>
-  </div>
+  <!-- the rest of your home content… -->
 
   <script>
-    // toggle service details
-    function toggle(id) {
-      let el = document.getElementById(id);
-      el.style.display = el.style.display==='block'?'none':'block';
-    }
-    // when flare is done, fade in content
-    window.addEventListener('load', ()=> {
-      setTimeout(()=>{
-        document.getElementById('intro').remove();
-        document.getElementById('content').classList.add('ready');
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelector('.intro-overlay').classList.add('hidden');
       }, 1000);
     });
   </script>
