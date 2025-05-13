@@ -55,13 +55,31 @@
     -->
   </div>
 
-  <script>
-    // fade the splash out once everything’s loaded
-    window.addEventListener('load', () => {
-      const splash = document.getElementById('splash');
+ <script>
+  (function(){
+    const splash = document.getElementById('splash');
+
+    function doFadeOut() {
+      if (!splash) return;
       splash.classList.add('fade-out');
-      setTimeout(() => splash.remove(), 800);
+      setTimeout(() => {
+        if (splash.parentNode) splash.parentNode.removeChild(splash);
+      }, 800);
+    }
+
+    // 1) Try as soon as DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      doFadeOut();
     });
-  </script>
-</body>
-</html>
+
+    // 2) Also on full window load
+    window.addEventListener('load', () => {
+      doFadeOut();
+    });
+
+    // 3) Hard fallback after 3 seconds
+    setTimeout(() => {
+      doFadeOut();
+    }, 3000);
+  })();
+</script>
