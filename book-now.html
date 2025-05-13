@@ -3,115 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book a Service – Bad Boyz Customz</title>
+  <title>Book Now - Bad Boyz Customz</title>
   <style>
-    body {
+    body, html {
+      margin: 0;
+      padding: 0;
       background: #111;
-      color: #CCC;
+      color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      padding: 40px 20px;
+      height: 100%;
+    }
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #1c1c1c;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
     h1 {
       text-align: center;
-      color: #00AAFF;
-      margin-bottom: 30px;
-    }
-    form {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #1C1C1C;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+      color: #00aaff;
+      margin-bottom: 20px;
     }
     label {
       display: block;
-      margin-top: 20px;
-      color: #FFF;
-      font-weight: bold;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      margin-top: 8px;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-family: inherit;
+      margin: 12px 0 4px;
     }
     input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    input[type="text"], input[type="email"], input[type="tel"] {
       background: #333;
-      color: #FFF;
-      padding: 12px;
+      color: #fff;
     }
-    button {
-      background: #00AAFF;
-      color: #FFF;
-      padding: 14px;
+    select, textarea {
+      background: #222;
+      color: #fff;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .cta-btn {
+      display: block;
+      width: 100%;
+      background: #00aaff;
+      color: #111;
+      padding: 15px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      text-align: center;
       font-weight: bold;
-      margin-top: 30px;
       cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
     }
-    button:hover {
-      background: #0077CC;
+    .cta-btn:hover {
+      background: #0077cc;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .back-link a {
+      color: #00aaff;
+      text-decoration: none;
+    }
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Schedule Your Consultation</h1>
+    <form action="https://YOUR_SERVER_ENDPOINT_HERE" method="post">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" required />
 
-  <h1>Book a Service</h1>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
 
-  <form id="bookingForm">
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" required />
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Optional" />
 
-    <label for="contact">Email or Phone</label>
-    <input type="text" id="contact" name="contact" required />
+      <label for="service">Service Inquiry</label>
+      <select id="service" name="service" required>
+        <option value="">Select a Service</option>
+        <option value="window_tinting">Window Tinting</option>
+        <option value="interior_detailing">Interior Detailing</option>
+        <option value="exterior_wash">Exterior Wash</option>
+        <option value="paint_protection">Paint Protection</option>
+        <option value="scratch_removal">Scratch Removal</option>
+      </select>
 
-    <label for="vehicle">Vehicle Make &amp; Model</label>
-    <input type="text" id="vehicle" name="vehicle" />
+      <label for="appointment">Preferred Appointment Date & Time</label>
+      <input type="text" id="appointment" name="appointment" placeholder="e.g. 05/25/2025, 2:00 PM" required />
 
-    <label for="service">Service Type</label>
-    <select id="service" name="service" required>
-      <option value="">— Select a service —</option>
-      <option>Window Tinting</option>
-      <option>Interior Detailing</option>
-      <option>Exterior Wash</option>
-      <option>Paint Protection</option>
-      <option>Scratch Removal</option>
-      <option>Vehicle Wraps</option>
-      <option>Audio Upgrades</option>
-    </select>
+      <label for="message">Additional Notes/Questions</label>
+      <textarea id="message" name="message" placeholder="Enter any additional details here..."></textarea>
 
-    <label for="datetime">Preferred Date/Time</label>
-    <input type="datetime-local" id="datetime" name="datetime" />
-
-    <label for="notes">Additional Notes</label>
-    <textarea id="notes" name="notes" rows="4"></textarea>
-
-    <button type="submit">Submit Request</button>
-  </form>
-
-  <script>
-    document.getElementById('bookingForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const endpoint = "https://script.google.com/macros/s/AKfycbw3kKhz0pr-_d_s1GiKhGk8D20m4LZC8luyu5Z51qFAjSP3vFOVsxNNp-rw0u6brN7-DQ/exec";
-
-      // collect and serialize form fields
-      const formData = new URLSearchParams(new FormData(this));
-
-      // send to your Apps Script
-      try {
-        await fetch(endpoint, {
-          method: 'POST',
-          body: formData
-        });
-        // on success, redirect to a thank-you page
-        window.location.href = 'thank-you.html';
-      } catch (err) {
-        console.error('Submission error:', err);
-        alert('Sorry, something went wrong. Please try again.');
-      }
-    });
-  </script>
+      <button type="submit" class="cta-btn">Submit Inquiry</button>
+    </form>
+    <div class="back-link">
+      <a href="https://jaunedoe.github.io/bad-boyz-customz/">← Back to Homepage</a>
+    </div>
+  </div>
 </body>
 </html>
