@@ -40,8 +40,7 @@
         <option>Window Tinting</option>
         <option>Interior Detailing</option>
         <option>Exterior Wash</option>
-        <option>Paint Protection</option>
-        <option>Scratch Removal</option>
+        <option>Paint Restoration</option>
         <option>Vehicle Wraps</option>
         <option>Audio Upgrades</option>
       </select>
@@ -81,6 +80,7 @@
     document.getElementById('bookingForm').addEventListener('submit', async e => {
       e.preventDefault();
 
+      // ← your deployed Web App URL here:
       const endpoint = 'https://script.google.com/macros/s/AKfycbxZLCVtiu6lkhWqGzaAse4nb4G9y8dGsdYzWy2QUdfcr90jfvLQQepe50dgDRl71WMY/exec';
       console.log('Submitting to', endpoint);
 
@@ -101,7 +101,7 @@
 
       } catch (err) {
         console.error('Submission error:', err);
-        alert('Submission failed — please try again.');
+        alert('Submission failed—please try again.');
       }
     });
   </script>
