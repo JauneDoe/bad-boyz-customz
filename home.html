@@ -5,270 +5,174 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bad Boyz Customz</title>
   <style>
-    /* Reset & base */
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #111;
-      color: #fff;
+    :root {
+      --blue: #00aaff;
+      --black: #111;
+      --gray: #333;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
       font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.4;
     }
-
-    /* OVERLAY INTRO (SECOND HALF) */
-    .intro-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: black;
+    header {
+      background: var(--blue);
+      color: var(--black);
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    nav {
+      background: var(--gray);
       display: flex;
-      align-items: center;
       justify-content: center;
-      z-index: 9999;
-      pointer-events: none;
+      gap: 1rem;
+      padding: 0.5rem;
     }
-    .intro-overlay h1 {
-      position: absolute;
-      font-size: 3rem;
-      color: #ffe600;
-      text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
     }
-    .flare {
-      position: absolute;
-      width: 200%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, white, transparent);
-      opacity: 0.8;
-      transform: translateX(0%);
-      animation: flareFinish 1s ease-in-out forwards;
-    }
-    @keyframes flareFinish {
-      0%   { transform: translateX(0%);   opacity: 1; }
-      100% { transform: translateX(100%); opacity: 0; }
-    }
-
-    /* After animation, hide overlay */
-    .intro-overlay.hidden {
-      display: none;
-    }
-
-    /* HERO SECTION */
     .hero {
       text-align: center;
-      padding: 80px 20px 60px;
-      background: linear-gradient(to bottom, #000000, #222222);
+      padding: 4rem 1rem;
+      background: #1a1a1a;
     }
     .hero h2 {
-      font-size: 2.5rem;
-      color: #00aaff;
-      margin-bottom: 10px;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
-    .hero p {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-    .cta-btn {
-      background: #00aaff;
-      color: #fff;
-      padding: 14px 28px;
-      font-size: 1rem;
+    .hero .cta {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: var(--blue);
+      color: var(--black);
+      padding: 0.75rem 1.5rem;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
       transition: background 0.3s;
     }
-    .cta-btn:hover {
-      background: #0077cc;
+    .hero .cta:hover {
+      background: #008fcc;
     }
-
-    /* SERVICES GRID */
     .services {
-      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1rem;
     }
     .services h3 {
       text-align: center;
-      color: #00aaff;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: var(--blue);
     }
     .service-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-    .service-wrapper {
-      width: 200px;
-      text-align: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1.5rem;
     }
     .service-item {
-      background: #222;
-      padding: 20px;
+      background: var(--gray);
+      padding: 1.5rem;
       border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .service-info {
-      display: none;
-      margin-top: 10px;
-      background: #222;
-      color: #ccc;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      text-align: left;
-    }
-
-    /* WHY US & CTA STRIP */
-    .why-us {
-      padding: 60px 20px;
-      background: #181818;
       text-align: center;
     }
-    .why-us ul {
-      list-style: none;
-      padding: 0;
-      max-width: 500px;
-      margin: 0 auto;
+    .service-item h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
     }
-    .why-us li {
-      margin: 15px 0;
-      font-size: 1.1rem;
+    .service-item p {
+      font-size: 0.95rem;
+      color: #ddd;
     }
-    .cta-strip {
-      background: #0077cc;
-      text-align: center;
-      padding: 40px 20px;
-    }
-    .cta-strip h3 {
-      color: #fff;
-      margin-bottom: 20px;
-    }
-
-    /* FOOTER */
     footer {
-      background: #222;
+      background: #0a0a0a;
       text-align: center;
-      padding: 20px 10px;
+      padding: 1.5rem 1rem;
       font-size: 0.9rem;
-      color: #aaa;
+      color: #888;
+    }
+    @media(max-width:600px){
+      header h1 { font-size:2rem; }
+      .hero h2 { font-size:1.6rem; }
     }
   </style>
-
-  <script>
-    // toggle service info panels
-    function toggleDetails(id) {
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-    // hide the overlay after flare animation finishes
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.querySelector('.intro-overlay').classList.add('hidden');
-      }, 1000);
-    });
-  </script>
 </head>
-
 <body>
-  <!-- Second-half flare overlay -->
-  <div class="intro-overlay">
-    <h1>Bad Boyz Customz</h1>
-    <div class="flare"></div>
-  </div>
 
-  <!-- Hero -->
-  <section class="hero">
+  <!-- HEADER -->
+  <header>
+    <h1>Bad Boyz Customz</h1>
+    <p>Your Car Deserves the Best in Tinting & Detailing</p>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#book">Book Now</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
     <h2>We Don’t Just Clean — We Transform</h2>
-    <p>Window Tinting • Detailing • Paint Protection</p>
-    <a href="book-now.html" class="cta-btn">Book Now</a>
+    <a href="#book" class="cta">Schedule Your Consultation</a>
   </section>
 
-  <!-- Services -->
-  <section class="services">
-    <h3>Our Services</h3>
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <h3>Our Expertise</h3>
     <div class="service-list">
-
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('tint')">Window Tinting</div>
-        <div id="tint" class="service-info">
-          High‑quality tint with lifetime warranty.<br>
-          <strong>Starting at $99</strong>
-        </div>
+      <div class="service-item">
+        <h4>Window Tinting</h4>
+        <p>High‑quality films for privacy, UV protection & style.</p>
       </div>
-
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('interior')">Interior Detailing</div>
-        <div id="interior" class="service-info">
-          Deep cleaning and odor removal.<br>
-          <strong>Starting at $75</strong>
-        </div>
+      <div class="service-item">
+        <h4>Interior Detailing</h4>
+        <p>Deep clean, leather conditioning & odor elimination.</p>
       </div>
-
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('exterior')">Exterior Wash</div>
-        <div id="exterior" class="service-info">
-          Hand wash, wax, and rim shine.<br>
-          <strong>Starting at $45</strong>
-        </div>
+      <div class="service-item">
+        <h4>Exterior Wash</h4>
+        <p>Hand wash, clay bar & high‑speed drying for a spotless shine.</p>
       </div>
-
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('paint')">Paint Protection</div>
-        <div id="paint" class="service-info">
-          Ceramic coating & UV defense.<br>
-          <strong>Starting at $150</strong>
-        </div>
+      <div class="service-item">
+        <h4>Paint Protection</h4>
+        <p>Ceramic coatings & sealants to guard against chips & scratches.</p>
       </div>
-
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('scratch')">Scratch Removal</div>
-        <div id="scratch" class="service-info">
-          Buffing and clear coat restore.<br>
-          <strong>Starting at $80</strong>
-        </div>
+      <div class="service-item">
+        <h4>Vehicle Wraps</h4>
+        <p>Custom graphics & finishes to make your ride one‑of‑a‑kind.</p>
       </div>
-
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('wrap')">Vehicle Wraps</div>
-        <div id="wrap" class="service-info">
-          Color changes or full‑body wraps.<br>
-          <strong>Starting at $499</strong>
-        </div>
+      <div class="service-item">
+        <h4>Audio Upgrades</h4>
+        <p>Speakers, amps & sound tuning for premium in‑car audio.</p>
       </div>
-
-      <div class="service-wrapper">
-        <div class="service-item" onclick="toggleDetails('audio')">Audio Upgrades</div>
-        <div id="audio" class="service-info">
-          Speakers, subs & stereo installs.<br>
-          <strong>Starting at $120</strong>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- Why Us -->
-  <section class="why-us">
-    <h3>Why Choose Bad Boyz Customz?</h3>
-    <ul>
-      <li>✔ Certified Technicians</li>
-      <li>✔ Same-Day Turnaround</li>
-      <li>✔ Mobile Service Available<li>
-    </ul>
+  <!-- BOOKING CTA -->
+  <section class="hero" id="book">
+    <h2>Ready to Transform Your Ride?</h2>
+    <a href="https://jaunedoe.github.io/bad-boyz-customz/book-now.html" class="cta">
+      Book Now
+    </a>
   </section>
 
-  <!-- CTA Strip -->
-  <section class="cta-strip">
-    <h3>Your Ride Deserves Better — Let’s Go.</h3>
-    <a href="book-now.html" class="cta-btn">Request Service</a>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    © 2025 Bad Boyz Customz. All Rights Reserved.<br>
-    Instagram | Facebook | Contact
+  <!-- CONTACT/FOOTER -->
+  <footer id="contact">
+    © 2025 Bad Boyz Customz • <a href="mailto:jauneits@gmail.com" style="color:var(--blue);">jauneits@gmail.com</a>
   </footer>
+
 </body>
 </html>
