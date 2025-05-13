@@ -5,81 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bad Boyz Customz – Home</title>
   <style>
-    /* ─── SPLASH OVERLAY ───────────────────────────────── */
     #splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
-      z-index: 9999;
+      position: fixed; top:0; left:0;
+      width:100%; height:100%;
+      background:#000; display:flex;
+      align-items:center; justify-content:center;
+      z-index:9999; opacity:1;
+      transition: opacity .8s ease;
     }
-    #splash h1 {
-      margin: 0;
-      font-size: 4rem;
-      line-height: 1.2;
-      text-align: center;
-      color: #ffff88;
-      filter: drop-shadow(0 0 20px #ffff88);
-    }
-    #splash.fade-out {
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
+    #splash.fade-out { opacity:0; }
 
-    /* ─── YOUR EXISTING SITE STYLES ────────────────────── */
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #111;
-      color: #fff;
+    #content {
+      opacity:0;
+      transition: opacity .8s ease;
     }
-    /* … paste in the rest of your home.css or inline styles here … */
+    #content.visible { opacity:1; }
   </style>
 </head>
 <body>
-
-  <!-- SPLASH INTRO -->
   <div id="splash">
-    <h1>Bad Boyz<br>Customz</h1>
+    <h1 style="color:#cc9; font-size:2.5rem; text-align:center; text-shadow:0 0 20px #cc9;">
+      Bad Boyz<br/>Customz
+    </h1>
   </div>
 
-  <!-- ─── YOUR REAL PAGE CONTENT ──────────────────────── -->
   <div id="content">
-    <!-- 
-      Paste everything from your old home.html body here,
-      e.g. “Welcome” hero, services, footer, etc.
-    -->
+    <!-- YOUR HOME PAGE MARKUP HERE -->
+    <header>…</header>
+    <main>…</main>
+    <!-- etc. -->
   </div>
 
- <script>
-  (function(){
-    const splash = document.getElementById('splash');
-
-    function doFadeOut() {
-      if (!splash) return;
-      splash.classList.add('fade-out');
-      setTimeout(() => {
-        if (splash.parentNode) splash.parentNode.removeChild(splash);
-      }, 800);
-    }
-
-    // 1) Try as soon as DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      doFadeOut();
-    });
-
-    // 2) Also on full window load
-    window.addEventListener('load', () => {
-      doFadeOut();
-    });
-
-    // 3) Hard fallback after 3 seconds
-    setTimeout(() => {
-      doFadeOut();
-    }, 3000);
-  })();
-</script>
+  <script>
+    (function(){
+      const splash  = document.getElementById('splash');
+      const content = document.getElementById('content');
+      function finish() {
+        if (splash)  splash.classList.add('fade-out');
+        if (content) content.classList.add('visible');
+        setTimeout(() => {
+          if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+        }, 800);
+      }
+      document.addEventListener('DOMContentLoaded', finish);
+      window.addEventListener('load', finish);
+      setTimeout(finish, 3000);
+    })();
+  </script>
+</body>
+</html>
