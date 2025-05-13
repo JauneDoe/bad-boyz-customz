@@ -1,178 +1,65 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bad Boyz Customz</title>
+  <title>Bad Boyz Customz - Intro</title>
   <style>
-    :root {
-      --blue: #00aaff;
-      --black: #111;
-      --gray: #333;
-      --white: #fff;
-    }
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: #000;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      line-height: 1.4;
+      overflow: hidden;
     }
-    header {
-      background: var(--blue);
-      color: var(--black);
-      text-align: center;
-      padding: 3rem 1rem;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    header p {
-      font-size: 1.2rem;
-    }
-    nav {
-      background: var(--gray);
+    .intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 1rem;
-      padding: 0.5rem;
+      background: black;
     }
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 600;
+    .intro h1 {
+      font-size: 3rem;
+      color: #ffe600;
+      text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
+      opacity: 0;
+      animation: revealText 0.8s ease-in 0.3s forwards;
     }
-    .hero {
-      text-align: center;
-      padding: 4rem 1rem;
-      background: #1a1a1a;
+    .flare {
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, white, transparent);
+      opacity: 0.8;
+      transform: translateX(-100%);
+      animation: flareHalf 1s ease-in-out forwards;
     }
-    .hero h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+
+    @keyframes flareHalf {
+      0% { transform: translateX(-100%); opacity: 0; }
+      100% { transform: translateX(0%); opacity: 1; }
     }
-    .hero .cta {
-      display: inline-block;
-      margin-top: 1.5rem;
-      background: var(--blue);
-      color: var(--black);
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .hero .cta:hover {
-      background: #008fcc;
-    }
-    .services {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 3rem 1rem;
-    }
-    .services h3 {
-      text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 2rem;
-      color: var(--blue);
-    }
-    .service-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-      gap: 1.5rem;
-    }
-    .service-item {
-      background: var(--gray);
-      padding: 1.5rem;
-      border-radius: 8px;
-      text-align: center;
-    }
-    .service-item h4 {
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-    }
-    .service-item p {
-      font-size: 0.95rem;
-      color: #ddd;
-    }
-    footer {
-      background: #0a0a0a;
-      text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: 0.9rem;
-      color: #888;
-    }
-    @media(max-width:600px){
-      header h1 { font-size:2rem; }
-      .hero h2 { font-size:1.6rem; }
+    @keyframes revealText {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
 <body>
-
-  <!-- HEADER -->
-  <header>
+  <div class="intro">
     <h1>Bad Boyz Customz</h1>
-    <p>Your Car Deserves the Best in Tinting & Detailing</p>
-  </header>
+    <div class="flare"></div>
+  </div>
 
-  <!-- NAVIGATION -->
-  <nav>
-    <a href="#services">Services</a>
-    <a href="#book">Book Now</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <!-- HERO SECTION -->
-  <section class="hero" id="hero">
-    <h2>We Don’t Just Clean — We Transform</h2>
-    <a href="#book" class="cta">Schedule Your Consultation</a>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <h3>Our Expertise</h3>
-    <div class="service-list">
-      <div class="service-item">
-        <h4>Window Tinting</h4>
-        <p>High‑quality films for privacy, UV protection & style.</p>
-      </div>
-      <div class="service-item">
-        <h4>Interior Detailing</h4>
-        <p>Deep clean, leather conditioning & odor elimination.</p>
-      </div>
-      <div class="service-item">
-        <h4>Exterior Wash</h4>
-        <p>Hand wash, clay bar & high‑speed drying for a spotless shine.</p>
-      </div>
-      <div class="service-item">
-        <h4>Paint Protection</h4>
-        <p>Ceramic coatings & sealants to guard against chips & scratches.</p>
-      </div>
-      <div class="service-item">
-        <h4>Vehicle Wraps</h4>
-        <p>Custom graphics & finishes to make your ride one‑of‑a‑kind.</p>
-      </div>
-      <div class="service-item">
-        <h4>Audio Upgrades</h4>
-        <p>Speakers, amps & sound tuning for premium in‑car audio.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOOKING CTA -->
-  <section class="hero" id="book">
-    <h2>Ready to Transform Your Ride?</h2>
-    <a href="https://jaunedoe.github.io/bad-boyz-customz/book-now.html" class="cta">
-      Book Now
-    </a>
-  </section>
-
-  <!-- CONTACT/FOOTER -->
-  <footer id="contact">
-    © 2025 Bad Boyz Customz • <a href="mailto:jauneits@gmail.com" style="color:var(--blue);">jauneits@gmail.com</a>
-  </footer>
-
+  <script>
+    setTimeout(() => {
+      window.location.href = "home.html";
+    }, 1100);
+  </script>
 </body>
 </html>
