@@ -3,91 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book Now - Bad Boyz Customz</title>
+  <title>Book Now – Bad Boyz Customz</title>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      background: #111;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      height: 100%;
-    }
-    .container {
-      max-width: 600px;
-      margin: 60px auto;
-      padding: 20px;
-      background: #1c1c1c;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    }
-    h1 {
-      text-align: center;
-      color: #00aaff;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      margin: 12px 0 4px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    input[type="text"], input[type="email"], input[type="tel"] {
-      background: #333;
-      color: #fff;
-    }
-    select, textarea {
-      background: #222;
-      color: #fff;
-    }
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-    .cta-btn {
-      display: block;
-      width: 100%;
-      background: #00aaff;
-      color: #111;
-      padding: 15px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 6px;
-      text-decoration: none;
-      text-align: center;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background 0.3s;
-    }
-    .cta-btn:hover {
-      background: #0077cc;
-    }
-    .back-link {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .back-link a {
-      color: #00aaff;
-      text-decoration: none;
-    }
-    @media (max-width: 600px) {
-      .container {
-        margin: 20px;
-        padding: 15px;
-      }
-    }
+    /* … your existing styles … */
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Schedule Your Consultation</h1>
-    <form id="bookingForm">
+
+    <!-- 1) action points to your new Apps Script Web App URL -->
+    <form id="bookingForm" action="https://script.google.com/macros/s/AKfycbxozRsV7GgEoI1LMug--4dCbxwVsIUoeLdABgBkZSaULCZ6E0KBzdrcp70n4tzvL6GBAg/exec" method="POST">
+      
       <label for="fullname">Full Name</label>
       <input type="text" id="fullname" name="name" required />
 
@@ -109,11 +36,11 @@
         <option>Audio Upgrades</option>
       </select>
 
-      <label for="appointment">Preferred Appointment Date & Time</label>
+      <label for="appointment">Preferred Appointment Date & Time</label>
       <input type="text" id="appointment" name="datetime" placeholder="MM/DD/YYYY, 9:00 AM" required />
 
       <label for="message">Additional Notes/Questions</label>
-      <textarea id="message" name="notes" placeholder="Enter any additional details here..."></textarea>
+      <textarea id="message" name="notes" placeholder="Enter any additional details here…"></textarea>
 
       <button type="submit" class="cta-btn">Submit Inquiry</button>
     </form>
@@ -124,37 +51,25 @@
   </div>
 
   <script>
-    // Compute next weekday at 9:00 AM and auto-fill the appointment field
+    // auto‑fill next weekday @9AM (your existing code)
     window.addEventListener('DOMContentLoaded', () => {
       const input = document.getElementById('appointment');
-      let date = new Date();
-      date.setDate(date.getDate() + 1);
-      if (date.getDay() === 6) date.setDate(date.getDate() + 2);
-      else if (date.getDay() === 0) date.setDate(date.getDate() + 1);
-      date.setHours(9, 0, 0, 0);
-
-      const mm = String(date.getMonth() + 1).padStart(2, '0');
-      const dd = String(date.getDate()).padStart(2, '0');
-      const yyyy = date.getFullYear();
-      let hrs = date.getHours();
-      const ampm = hrs >= 12 ? 'PM' : 'AM';
-      hrs = hrs % 12 || 12;
-      const mins = String(date.getMinutes()).padStart(2, '0');
+      let d = new Date();
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() === 6) d.setDate(d.getDate() + 2);
+      else if (d.getDay() === 0) d.setDate(d.getDate() + 1);
+      d.setHours(9, 0, 0, 0);
+      const mm = String(d.getMonth()+1).padStart(2,'0'),
+            dd = String(d.getDate()).padStart(2,'0'),
+            yyyy = d.getFullYear();
+      let hrs = d.getHours(), ampm = hrs >= 12 ? 'PM':'AM';
+      hrs = hrs%12||12; const mins = String(d.getMinutes()).padStart(2,'0');
       input.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ampm}`;
     });
 
-    // Submit handler
-    document.getElementById('bookingForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const endpoint = "https://script.google.com/macros/s/AKfycbxIymXfC5LSRNXcz2uoNL_LEkX3lHTKdr2hYykP9-nYEXlCYx8YcyF81hMFJjYU4rLqUw/exec";
-      const formData = new URLSearchParams(new FormData(this));
-      try {
-        await fetch(endpoint, { method: 'POST', body: formData });
-        window.location.href = 'thank-you.html';
-      } catch(err) {
-        console.error(err);
-        alert('Sorry, something went wrong. Please try again.');
-      }
+    // optional: intercept and show a “thanks” page
+    document.getElementById('bookingForm').addEventListener('submit', e => {
+      // let it POST normally; then you can redirect in doPost response if you want
     });
   </script>
 </body>
