@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book a Service - Bad Boyz Customz</title>
+  <title>Book a Service – Bad Boyz Customz</title>
   <style>
     body {
       margin: 0;
@@ -60,18 +60,27 @@
 </head>
 <body>
   <h1>Book a Service</h1>
-  <form method="POST" action="form-handler.php">
+
+  <!-- hidden iframe to swallow the Google Form redirect -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <form
+    action="https://docs.google.com/forms/d/e/1FAIpQLSezoyuTf1fCFJ4yjJX9xp5bxNbNiZFfcjLVbjr5oVCw7Xmv6Q/formResponse"
+    method="POST"
+    target="hidden_iframe"
+    onsubmit="setTimeout(function(){ window.location='thank-you.html'; }, 500);"
+  >
     <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" required />
+    <input type="text" id="name" name="entry.1976357159" required />
 
     <label for="contact">Email or Phone</label>
-    <input type="text" id="contact" name="contact" required />
+    <input type="text" id="contact" name="entry.1499556579" required />
 
-    <label for="vehicle">Vehicle Make & Model</label>
-    <input type="text" id="vehicle" name="vehicle" />
+    <label for="vehicle">Vehicle Make &amp; Model</label>
+    <input type="text" id="vehicle" name="entry.1706195781" />
 
     <label for="service">Service Type</label>
-    <select id="service" name="service">
+    <select id="service" name="entry.678800279">
       <option value="Window Tinting">Window Tinting</option>
       <option value="Interior Detailing">Interior Detailing</option>
       <option value="Exterior Wash">Exterior Wash</option>
@@ -82,10 +91,10 @@
     </select>
 
     <label for="datetime">Preferred Date/Time</label>
-    <input type="datetime-local" id="datetime" name="datetime" />
+    <input type="datetime-local" id="datetime" name="entry.649194897" />
 
     <label for="notes">Additional Notes</label>
-    <textarea id="notes" name="notes" rows="4"></textarea>
+    <textarea id="notes" name="entry.400688716" rows="4"></textarea>
 
     <button type="submit">Submit Request</button>
   </form>
