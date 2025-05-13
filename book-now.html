@@ -87,7 +87,6 @@
 <body>
   <div class="container">
     <h1>Schedule Your Consultation</h1>
-    <!-- give the form an ID, remove action attribute -->
     <form id="bookingForm">
       <label for="fullname">Full Name</label>
       <input type="text" id="fullname" name="name" required />
@@ -101,17 +100,17 @@
       <label for="service">Service Inquiry</label>
       <select id="service" name="service" required>
         <option value="">Select a Service</option>
-        <option value="Window Tinting">Window Tinting</option>
-        <option value="Interior Detailing">Interior Detailing</option>
-        <option value="Exterior Wash">Exterior Wash</option>
-        <option value="Paint Protection">Paint Protection</option>
-        <option value="Scratch Removal">Scratch Removal</option>
-        <option value="Vehicle Wraps">Vehicle Wraps</option>
-        <option value="Audio Upgrades">Audio Upgrades</option>
+        <option>Window Tinting</option>
+        <option>Interior Detailing</option>
+        <option>Exterior Wash</option>
+        <option>Paint Protection</option>
+        <option>Scratch Removal</option>
+        <option>Vehicle Wraps</option>
+        <option>Audio Upgrades</option>
       </select>
 
       <label for="appointment">Preferred Appointment Date & Time</label>
-      <input type="text" id="appointment" name="datetime" placeholder="e.g. 05/25/2025, 2:00 PM" required />
+      <input type="text" id="appointment" name="datetime" placeholder="MM/DD/YYYY, 9:00 AM" required />
 
       <label for="message">Additional Notes/Questions</label>
       <textarea id="message" name="notes" placeholder="Enter any additional details here..."></textarea>
@@ -125,6 +124,30 @@
   </div>
 
   <script>
+    // Compute next weekday at 9:00 AM and auto-fill the appointment field
+    window.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('appointment');
+      let date = new Date();
+      // move to tomorrow
+      date.setDate(date.getDate() + 1);
+      // if Saturday (6) or Sunday (0), skip to Monday
+      if (date.getDay() === 6) date.setDate(date.getDate() + 2);
+      else if (date.getDay() === 0) date.setDate(date.getDate() + 1);
+      // set 9 AM
+      date.setHours(9, 0, 0, 0);
+
+      // format MM/DD/YYYY, h:mm AM/PM
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const dd = String(date.getDate()).padStart(2, '0');
+      const yyyy = date.getFullYear();
+      let hrs = date.getHours();
+      const ampm = hrs >= 12 ? 'PM' : 'AM';
+      hrs = hrs % 12 || 12;
+      const mins = String(date.getMinutes()).padStart(2, '0');
+      input.value = `${mm}/${dd}/${yyyy}, ${hrs}:${mins} ${ampm}`;
+    });
+
+    // Submit handler stays the same
     document.getElementById('bookingForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const endpoint = "https://script.google.com/macros/s/AKfycbw3kKhz0pr-_d_s1GiKhGk8D20m4LZC8luyu5Z51qFAjSP3vFOVsxNNp-rw0u6brN7-DQ/exec";
