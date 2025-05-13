@@ -3,93 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bad Boyz Customz</title>
+  <title>Bad Boyz Customz – Intro</title>
   <style>
-    /* SPLASH */
-    #splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+    /* full‐screen black, centered text + flare */
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100vh;
+      overflow: hidden;
       background: #000;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .intro {
+      position: absolute;
+      top:0; left:0;
+      width:100%; height:100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      z-index: 9999;
     }
-
-    /* keep the text perfectly centered */
-    #splash h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      color: #cc9;
-      text-shadow: 0 0 20px #cc9;
-      /* make sure it’s always centered */
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
+    .intro h1 {
+      font-size: 3rem;
+      color: #ffe600;
+      text-shadow: 0 0 15px #ffe600, 0 0 30px #fff;
+      opacity: 0;
+      animation: revealText 0.8s ease-in 0.3s forwards;
     }
-
-    /* the “flare” sliding across */
     .flare {
       position: absolute;
-      width: 200%;
-      height: 100%;
+      top:0; left:0;
+      width:200%; height:100%;
       background: linear-gradient(120deg, transparent, #fff, transparent);
       opacity: 0.8;
-      top: 0; left: -100%;
-      animation: flareFinish 1s ease-in-out forwards;
+      transform: translateX(-100%);
+      animation: slideFlare 1s ease-in-out forwards;
     }
-    @keyframes flareFinish {
-      to {
-        transform: translateX(200%);
-        opacity: 0;
-      }
+    @keyframes slideFlare {
+      to { transform: translateX(0); opacity: 1; }
     }
-
-    /* MAIN CONTENT */
-    #content {
-      opacity: 0;
-      transition: opacity .8s ease;
-    }
-    #content.visible {
-      opacity: 1;
+    @keyframes revealText {
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <!-- 1️⃣ Splash Screen -->
-  <div id="splash">
-    <h1>Bad Boyz Customz</h1>
+  <div class="intro">
+    <h1>Bad Boyz Customz</h1>
     <div class="flare"></div>
   </div>
 
-  <!-- 2️⃣ Your Home Page Markup -->
-  <div id="content">
-    <!-- copy/paste all of home.html here, or load it via JS -->
-    <nav>…</nav>
-    <section class="hero">…</section>
-    <section class="services">…</section>
-    <footer>…</footer>
-  </div>
-
-  <!-- 3️⃣ Splash → Content Script -->
   <script>
-    (function(){
-      const splash  = document.getElementById('splash');
-      const content = document.getElementById('content');
-      function showPage(){
-        splash && splash.style.transition = 'opacity .8s';
-        splash && (splash.style.opacity = '0');
-        content && content.classList.add('visible');
-        setTimeout(()=> splash && splash.remove(), 800);
-      }
-      // fire as soon as the flare is done
-      window.addEventListener('load', ()=> setTimeout(showPage, 1000));
-      // fallback after 3s in case load is slow
-      setTimeout(showPage, 3000);
-    })();
+    // after 1.1s, drop into your Home page
+    setTimeout(() => {
+      window.location.href = "home.html"; 
+      // ← or whatever the URL/slug of your real homepage is
+    }, 1100);
   </script>
 </body>
 </html>
